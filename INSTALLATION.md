@@ -126,11 +126,10 @@ Si tout fonctionne : ton site est prêt.
 ## Étape 9 · Passer en réel (quand tu es prêt à vendre)
 
 1. **Vercel Pro (20 $/mois)** : le plan gratuit de Vercel est réservé aux projets non commerciaux. Avant ta première vraie vente : Vercel → **Settings** → **Billing** → passe au plan **Pro**.
-2. **Nom de domaine** (≈ 12 $/an) : Vercel → **Settings** → **Domains** → ajoute ton domaine et suis les instructions.
-3. **E-mails à tes vrais clients** : Resend → **Domains** → **Add domain** → ajoute les enregistrements DNS demandés. Une fois le domaine vérifié, ajoute dans Vercel la variable `EMAIL_FROM` avec par exemple `Ta Marque <hello@tondomaine.com>`. Tes e-mails arrivent alors à tous tes clients, et plus en spam.
-4. **Stripe en réel** : active ton compte (infos de ta société), quitte le mode test, copie la clé `sk_live_…` et remplace `STRIPE_SECRET_KEY` dans Vercel. Recrée le webhook (étape 6) en mode réel et remplace `STRIPE_WEBHOOK_SECRET` par le nouveau `whsec_…`.
-5. **Pages légales** : complète `legalName` et `legalAddress` dans `config/site.ts` et fais relire Terms, Privacy et Refund policy.
-6. **Redeploy**, puis refais une commande avec une vraie carte et rembourse-la depuis Stripe pour vérifier.
+2. **Nom de domaine et e-mails** (≈ 12 $/an) : suis **[docs/DOMAINE.md](./docs/DOMAINE.md)** (ou dis à Claude : « Guide-moi pour mon nom de domaine avec docs/DOMAINE.md ») : acheter le domaine (dans Vercel ou chez Hostinger, Namecheap…), le connecter au site, envoyer tes e-mails depuis `hello@tondomaine.com` à **tous** tes clients, et recevoir les réponses dans ta boîte Gmail.
+3. **Stripe en réel** : active ton compte (infos de ta société), quitte le mode test, copie la clé `sk_live_…` et remplace `STRIPE_SECRET_KEY` dans Vercel. Recrée le webhook (étape 6) en mode réel et remplace `STRIPE_WEBHOOK_SECRET` par le nouveau `whsec_…`.
+4. **Pages légales** : complète `legalName` et `legalAddress` dans `config/site.ts` et fais relire Terms, Privacy et Refund policy.
+5. **Redeploy**, puis refais une commande avec une vraie carte et rembourse-la depuis Stripe pour vérifier.
 
 ---
 

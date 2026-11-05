@@ -58,7 +58,7 @@ Suis INSTALLATION.md, avec cette différence : comme tu as déjà personnalisé 
 
 ## Phase 3 · Passer en réel
 
-Quand il est prêt : INSTALLATION.md étape 9 (domaine, e-mails avec `EMAIL_FROM`, Stripe en réel, pages légales). Puis rappelle-lui la suite du module : trouver ses freelances, gérer ses commandes, trouver ses premiers clients.
+Quand il est prêt : INSTALLATION.md étape 9 : Vercel Pro, puis **le nom de domaine avec [docs/DOMAINE.md](./docs/DOMAINE.md)** (achat dans Vercel ou chez Hostinger/Namecheap…, connexion au site, e-mails depuis son domaine avec `EMAIL_FROM`, réception des réponses dans Gmail), Stripe en réel, pages légales. Guide chaque étape une par une, avec une capture. Puis rappelle-lui la suite du module : trouver ses freelances, gérer ses commandes, trouver ses premiers clients.
 
 ## Pièges connus (déjà corrigés dans le code, à connaître pour l'aider)
 

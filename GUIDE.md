@@ -71,6 +71,10 @@ Problèmes fréquents :
 - **Les variables ne sont pas prises en compte** : toujours faire **Redeploy** après les avoir modifiées dans Vercel (Deployments → ⋯ → Redeploy), puis recharger le site.
 - **Clés Supabase** : utiliser l’onglet **Legacy API Keys** (anon + service_role). Ne pas cliquer sur les intégrations proposées par Vercel (Stripe, Resend, Supabase) : elles créent des variables en double.
 
+## Nom de domaine
+
+Quand l'élève passe en réel : suis **docs/DOMAINE.md** étape par étape (achat, connexion à Vercel, e-mails Resend avec `EMAIL_FROM`, redirection de `hello@` vers son Gmail, mise à jour de `domain` et `contactEmail` dans `config/site.ts`).
+
 ## Comment fonctionne une commande (pour expliquer à l’élève)
 
 1. Le client choisit une offre → donne son e-mail (`/start`) → choisit ou non l’option payante (`/start/options`) → paie sur Stripe.
