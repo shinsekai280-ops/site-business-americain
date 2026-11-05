@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Nothing may ever make the page scroll sideways on a phone (decorative blurs, long words…) */
+html,
+body {
+  overflow-x: clip;
+}
+
+
 :root {
   color-scheme: light;
   --font-inter: "Inter Variable";

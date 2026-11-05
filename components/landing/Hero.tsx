@@ -75,8 +75,8 @@ function Showcase() {
   const img = site.showcaseImages;
   return (
     <div className="mt-14 rounded-[36px] border border-white/80 bg-white/50 p-3 shadow-float backdrop-blur md:p-4">
-      <div className="grid grid-cols-2 gap-3 md:h-[440px] md:grid-cols-[1fr_2fr_1fr_1fr] md:gap-4">
-        <div className="relative h-[260px] overflow-hidden rounded-[26px] bg-gradient-brand md:h-auto">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:h-[440px] lg:grid-cols-[1fr_2fr_1fr_1fr]">
+        <div className="relative order-2 h-[240px] sm:h-[340px] overflow-hidden rounded-[26px] bg-gradient-brand lg:order-none lg:h-auto">
           {img.first ? (
             <Img src={img.first} />
           ) : (
@@ -87,17 +87,17 @@ function Showcase() {
               </div>
             </>
           )}
-          <div className="absolute left-4 top-4 flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-float">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-brand text-ink">
+          <div className="absolute left-3 right-3 top-3 flex items-center gap-2.5 rounded-2xl bg-white/95 px-3 py-2.5 shadow-float sm:right-auto md:left-4 md:top-4 md:gap-3 md:px-4 md:py-3">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-brand text-ink md:h-9 md:w-9">
               <Check className="h-5 w-5" />
             </span>
             <span className="leading-tight">
-              <span className="block text-[14px] font-medium">First concepts delivered</span>
-              <span className="block text-[13px] font-medium text-muted">within 48 hours</span>
+              <span className="block text-[13px] font-medium md:text-[14px]">First concepts delivered</span>
+              <span className="block text-[12px] font-medium text-muted md:text-[13px]">within 48 hours</span>
             </span>
           </div>
         </div>
-        <div className="relative col-span-2 h-[260px] overflow-hidden rounded-[26px] bg-[#EFE7DA] md:col-span-1 md:h-auto">
+        <div className="relative order-1 col-span-2 h-[260px] sm:h-[360px] overflow-hidden rounded-[26px] bg-[#EFE7DA] lg:order-none lg:col-span-1 lg:h-auto">
           {img.main ? (
             <Img src={img.main} />
           ) : (
@@ -110,7 +110,7 @@ function Showcase() {
             </>
           )}
         </div>
-        <div className="relative h-[260px] overflow-hidden rounded-[26px] bg-[#16352B] md:h-auto">
+        <div className="relative order-3 h-[240px] sm:h-[340px] overflow-hidden rounded-[26px] bg-[#16352B] lg:order-none lg:h-auto">
           {img.third ? (
             <Img src={img.third} />
           ) : (
@@ -122,7 +122,7 @@ function Showcase() {
             </>
           )}
         </div>
-        <div className="relative h-[260px] overflow-hidden rounded-[26px] bg-[#0E1116] md:h-auto">
+        <div className="relative order-4 col-span-2 h-[260px] sm:h-[360px] overflow-hidden rounded-[26px] bg-[#0E1116] lg:order-none lg:col-span-1 lg:h-auto">
           {img.fourth ? (
             <Img src={img.fourth} />
           ) : (

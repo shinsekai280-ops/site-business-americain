@@ -8,11 +8,11 @@ export function Shell({ children, right, wide = false }: { children: React.React
       <div className="blob -right-40 -top-40 h-[520px] w-[520px] bg-lime/35" />
       <div className="blob -left-40 top-1/2 h-[420px] w-[420px] bg-lemon/30" />
       <header className="relative border-b border-line/70 bg-paper/70 backdrop-blur-xl">
-        <div className={`mx-auto flex h-16 items-center justify-between px-5 md:h-[72px] md:px-8 ${wide ? "max-w-[1200px]" : "max-w-[980px]"}`}>
-          <Link href="/" aria-label="Home">
-            <BrandLogo />
+        <div className={`mx-auto flex h-16 items-center justify-between gap-3 px-4 sm:px-5 md:h-[72px] md:px-8 ${wide ? "max-w-[1200px]" : "max-w-[980px]"}`}>
+          <Link href="/" aria-label="Home" className="min-w-0 shrink">
+            <BrandLogo className="[&>span]:hidden min-[400px]:[&>span]:inline" />
           </Link>
-          <div className="text-[14px]">{right}</div>
+          <div className="shrink-0 text-[14px]">{right}</div>
         </div>
       </header>
       <main className={`relative mx-auto px-5 py-10 md:px-8 md:py-16 ${wide ? "max-w-[1200px]" : "max-w-[980px]"}`}>{children}</main>

@@ -91,8 +91,10 @@ export function Compare() {
 /* ---------------- Pricing ---------------- */
 export function Pricing({ spots }: { spots: number | null }) {
   return (
-    <section id="pricing" className="relative mx-auto max-w-[1400px] scroll-mt-24 px-5 py-24 md:px-10 md:py-32">
-      <div className="blob left-1/3 top-40 h-[420px] w-[420px] bg-lime/30" />
+    <section id="pricing" className="relative mx-auto max-w-[1400px] scroll-mt-24 px-5 py-14 md:px-10 md:py-20">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="blob left-1/3 top-40 h-[420px] w-[420px] bg-lime/30" />
+      </div>
       <div className="relative text-center">
         <Eyebrow>Pricing</Eyebrow>
         <h2 className="mx-auto mt-4 max-w-4xl text-[40px] font-medium leading-[1.05] tracking-tightest md:text-[64px]">
