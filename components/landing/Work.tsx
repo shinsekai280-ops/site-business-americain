@@ -1,68 +1,88 @@
 "use client";
 
 import { useState } from "react";
-import { demoBrands } from "@/components/showcase/logos";
-import { DarkButton, Eyebrow, SectionTitle } from "@/components/ui";
+import { site, formatUsd } from "@/config/site";
+import { DarkButton, SectionTitle } from "@/components/ui";
+import { BrandVisual } from "@/components/showcase/Visual";
 
-const backgrounds: Record<string, { bg: string; logo: string; size: string }> = {
-  Halden: { bg: "bg-[#ECEBE6]", logo: "#0B0B0F", size: "text-[26px]" },
-  Verra: { bg: "bg-[#EFE7DA]", logo: "#2B2118", size: "text-[56px]" },
-  "Northline Capital": { bg: "bg-[#0E1116]", logo: "#FFFFFF", size: "text-[26px]" },
-  "Oriel Hotels": { bg: "bg-[#16352B]", logo: "#EAF2E3", size: "text-[26px]" },
-  "Fieldwork Coffee": { bg: "bg-[#3B2A1E]", logo: "#F7F2E8", size: "text-[26px]" },
-  "Lumen Health": { bg: "bg-gradient-brand", logo: "#0B3B2E", size: "text-[28px]" },
-  Kinetic: { bg: "bg-white", logo: "#0B0B0F", size: "text-[34px]" },
-  "Maison Sel": { bg: "bg-[#D9D4CB]", logo: "#1A1A1A", size: "text-[30px]" },
-};
+const PER_PAGE = 2;
+const fromPrice = formatUsd(Math.min(...site.packages.map((p) => p.priceUsd)));
 
 export function Work() {
-  const industries = ["All", ...Array.from(new Set(demoBrands.map((b) => b.industry)))];
-  const [active, setActive] = useState("All");
-  const list = active === "All" ? demoBrands : demoBrands.filter((b) => b.industry === active);
+  const tabs = ["Featured", ...Array.from(new Set(site.portfolio.map((p) => p.industry)))];
+  const [tab, setTab] = useState("Featured");
+  const [page, setPage] = useState(0);
+
+  const list = tab === "Featured" ? site.portfolio.filter((p) => p.featured) : site.portfolio.filter((p) => p.industry === tab);
+  const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  const shown = list.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
+
+  const arrow =
+    "flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-[20px] leading-none shadow-[0_1px_2px_rgba(11,11,15,0.06)] transition hover:border-ink/30";
 
   return (
-    <section id="work" className="mx-auto max-w-[1400px] scroll-mt-24 px-5 py-24 md:px-10 md:py-32">
-      <Eyebrow>Portfolio</Eyebrow>
-      <div className="mt-4 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-        <SectionTitle>Our recent work</SectionTitle>
-        <div className="no-scrollbar flex gap-2 overflow-x-auto">
-          {industries.map((i) => (
+    <section id="work" className="mx-auto max-w-[1400px] scroll-mt-24 px-5 py-14 md:px-10 md:py-20">
+      <SectionTitle>Our recent work</SectionTitle>
+
+      <div className="mt-8 flex justify-center">
+        <div className="no-scrollbar flex max-w-full gap-1 overflow-x-auto rounded-full bg-ink/[0.05] p-1.5">
+          {tabs.map((t) => (
             <button
-              key={i}
-              onClick={() => setActive(i)}
-              data-filter={i}
-              className={`whitespace-nowrap rounded-full px-4 py-2 text-[14px] transition ${
-                active === i ? "bg-ink text-white shadow-pill" : "border border-line bg-white text-ink/70 hover:text-ink"
+              key={t}
+              onClick={() => {
+                setTab(t);
+                setPage(0);
+              }}
+              className={`whitespace-nowrap rounded-full px-4 py-2 text-[14px] transition md:px-5 ${
+                tab === t ? "bg-white text-ink shadow-[0_1px_3px_rgba(11,11,15,0.12)]" : "text-ink/60 hover:text-ink"
               }`}
             >
-              {i}
+              {t}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {list.map(({ name, industry, Logo }) => {
-          const s = backgrounds[name];
-          return (
-            <article key={name} data-industry={industry} className="group overflow-hidden rounded-[28px] border border-white bg-white p-2 shadow-card transition hover:-translate-y-1 hover:shadow-float">
-              <div className={`relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[22px] ${s.bg}`}>
-                <div className={`${s.size} transition duration-500 group-hover:scale-105`}>
-                  <Logo color={s.logo} />
-                </div>
+      <div className="mt-8 space-y-8">
+        {shown.map((p) => (
+          <article key={p.name}>
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="aspect-[16/10] overflow-hidden rounded-[20px]">
+                <BrandVisual brand={p.name} image={p.images[0]} variant="logo" />
               </div>
-              <div className="flex items-center justify-between px-3 pb-2 pt-4">
-                <p className="text-[15px] font-medium">{name}</p>
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">{industry}</p>
+              <div className="aspect-[16/10] overflow-hidden rounded-[20px]">
+                <BrandVisual brand={p.name} image={p.images[1]} variant="card" />
               </div>
-            </article>
-          );
-        })}
+            </div>
+            <p className="mt-3 flex items-center gap-2 border-t border-line pt-3 text-[15px]">
+              <span aria-hidden>→</span>
+              <span className="font-medium">{p.name}</span>
+              <span className="text-muted">· {p.industry}</span>
+            </p>
+          </article>
+        ))}
       </div>
 
-      <div className="mt-12 flex flex-col items-center gap-3">
+      {pages > 1 && (
+        <div className="mt-8 flex items-center gap-4">
+          <button aria-label="Previous projects" onClick={() => setPage((page - 1 + pages) % pages)} className={arrow}>
+            ‹
+          </button>
+          <button aria-label="Next projects" onClick={() => setPage((page + 1) % pages)} className={arrow}>
+            ›
+          </button>
+          <p className="text-[13px] tabular-nums">
+            {String(page + 1).padStart(2, "0")} <span className="text-muted">/ {String(pages).padStart(2, "0")}</span>
+          </p>
+          <div className="h-px w-32 bg-line md:w-40">
+            <div className="h-px bg-ink transition-all duration-500" style={{ width: `${((page + 1) / pages) * 100}%` }} />
+          </div>
+        </div>
+      )}
+
+      <div className="mt-10 flex flex-col items-center gap-3">
         <DarkButton href="#pricing">Start my brand</DarkButton>
-        <p className="text-[14px] text-muted">First concepts in 48 hours</p>
+        <p className="text-[13px] text-muted">From {fromPrice} · first concepts in 48 hours</p>
       </div>
     </section>
   );

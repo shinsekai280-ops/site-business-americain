@@ -46,7 +46,7 @@ export default async function Admin({ searchParams }: { searchParams: { status?:
             href={`/admin/orders/${o.id}`}
             className="grid gap-3 rounded-[22px] border border-line bg-white p-5 shadow-card transition hover:shadow-float md:grid-cols-[120px_1.5fr_1.3fr_auto_100px] md:items-center"
           >
-            <span className="font-mono text-[13px] uppercase text-muted">#{orderRef(o.id)}</span>
+            <span className="text-[13px] font-medium text-muted">#{orderRef(o.id)}</span>
             <span className="truncate text-[15px]">{o.email}</span>
             <span className="text-[15px] font-medium">{packageLabel(o)}</span>
             <StatusPill status={o.status} />
@@ -61,7 +61,7 @@ export default async function Admin({ searchParams }: { searchParams: { status?:
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className={`rounded-[22px] p-5 shadow-card ${highlight ? "bg-ink text-white" : "border border-line bg-white"}`}>
-      <p className={`font-mono text-[11px] uppercase tracking-[0.15em] ${highlight ? "text-white/60" : "text-muted"}`}>{label}</p>
+      <p className={`text-[13px] font-medium ${highlight ? "text-white/60" : "text-muted"}`}>{label}</p>
       <p className="mt-2 text-[32px] font-medium tracking-tightest">{value}</p>
     </div>
   );

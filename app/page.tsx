@@ -3,8 +3,9 @@ import { firstConceptsDate, spotsLeftToday } from "@/lib/availability";
 import { TopBar, Nav } from "@/components/landing/Header";
 import { Hero } from "@/components/landing/Hero";
 import { Work } from "@/components/landing/Work";
+import { Included } from "@/components/landing/Included";
 import { Dock } from "@/components/landing/Dock";
-import { Industries, Compare, Included, Pricing, Guarantee, Promises, Process, Reviews, Faq, FinalCta, Footer } from "@/components/landing/Sections";
+import { Industries, Compare, Pricing, Guarantee, Promises, Process, Reviews, Faq, FinalCta, Footer } from "@/components/landing/Sections";
 
 export const revalidate = 300; // refresh the banner date and spots every 5 minutes
 

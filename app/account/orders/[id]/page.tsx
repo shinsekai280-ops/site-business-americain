@@ -71,7 +71,7 @@ export default async function OrderPage({ params, searchParams }: { params: { id
     <Shell right={<AccountNav email={user.email} admin={admin} />}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="font-mono text-[12px] uppercase tracking-[0.15em] text-muted">Order #{orderRef(order.id)}</p>
+          <p className="text-[13px] font-medium text-muted">Order #{orderRef(order.id)}</p>
           <h1 className="mt-2 text-[34px] font-medium leading-[1.02] tracking-tightest md:text-[48px]">{packageLabel(order)}</h1>
         </div>
         <StatusPill status={order.status} />
@@ -122,7 +122,7 @@ export default async function OrderPage({ params, searchParams }: { params: { id
         {(order.status === "in_progress" || order.status === "revision_requested") && (
           <Card className="relative overflow-hidden">
             <div className="blob -right-20 -top-20 h-64 w-64 bg-lime/40" />
-            <p className="relative font-mono text-[12px] uppercase tracking-[0.15em] text-muted">In progress</p>
+            <p className="relative text-[13px] font-medium text-muted">In progress</p>
             <h2 className="relative mt-3 text-[26px] font-medium tracking-tightest md:text-[32px]">
               {order.status === "in_progress" ? "Our designers are working on your concepts." : "Your revision is in progress."}
             </h2>
@@ -250,7 +250,7 @@ export default async function OrderPage({ params, searchParams }: { params: { id
         {/* SUMMARY */}
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
-            <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">Your guarantee</p>
+            <p className="text-[13px] font-medium text-muted">Your guarantee</p>
             <p className="mt-3 flex items-start gap-2.5 text-[15px]">
               <Shield className="mt-0.5 h-5 w-5 shrink-0" />
               {order.refund_locked
@@ -260,7 +260,7 @@ export default async function OrderPage({ params, searchParams }: { params: { id
           </Card>
           {order.brief && (
             <Card>
-              <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">Your brief</p>
+              <p className="text-[13px] font-medium text-muted">Your brief</p>
               <ul className="mt-3 space-y-1.5 text-[15px]">
                 <li className="flex gap-2">
                   <Check className="mt-0.5 h-4 w-4 text-leaf" /> {order.brief.company}

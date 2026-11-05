@@ -73,6 +73,30 @@ export const site = {
   // Real reviews only. While this list is empty, the reviews section is hidden.
   reviews: [] as { name: string; country: string; date: string; text: string }[],
 
+  /* ---------- Portfolio ("Our recent work") ----------
+     2 images per project, side by side. Put your images in /public/work/ and write the path, e.g. "/work/verra-1.jpg".
+     While an image path is empty, a demo visual is shown instead. "featured: true" = shown in the first tab. */
+  portfolio: [
+    { name: "Verra", industry: "Beauty", featured: true, images: ["", ""] },
+    { name: "Northline Capital", industry: "Fintech", featured: true, images: ["", ""] },
+    { name: "Kinetic", industry: "SaaS", featured: true, images: ["", ""] },
+    { name: "Oriel Hotels", industry: "Hospitality", featured: true, images: ["", ""] },
+    { name: "Lumen Health", industry: "Health & wellness", featured: false, images: ["", ""] },
+    { name: "Halden", industry: "Real estate", featured: false, images: ["", ""] },
+    { name: "Fieldwork Coffee", industry: "Food & drink", featured: false, images: ["", ""] },
+    { name: "Maison Sel", industry: "E-commerce", featured: false, images: ["", ""] },
+  ] as { name: string; industry: string; featured: boolean; images: [string, string] }[],
+
+  /* ---------- "A logo is one piece" section images ----------
+     Put your images in /public/included/ and write the path. Empty = demo visual. */
+  includedImages: {
+    directions: "",
+    world: "",
+    rules: "",
+    tangible: "",
+    social: "",
+  },
+
   /* ---------- Packages ---------- */
   packages: [
     {

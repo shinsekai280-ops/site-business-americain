@@ -50,7 +50,7 @@ export function Compare() {
           Three ways to get a brand. <span className="text-ink/40">One clear choice.</span>
         </SectionTitle>
       </div>
-      <div className="mt-14 grid gap-4 lg:grid-cols-3">
+      <div className="mt-10 grid gap-4 lg:grid-cols-3">
         {cols.map((c) => (
           <div
             key={c.name}
@@ -63,7 +63,7 @@ export function Compare() {
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[30px]">
                   <div className="blob -right-20 -top-20 h-64 w-64 bg-lime/40" />
                 </div>
-                <span className="relative mb-5 inline-block rounded-full bg-gradient-brand px-3 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-ink">
+                <span className="relative mb-5 inline-block rounded-full bg-gradient-brand px-3 py-1 text-[13px] font-medium text-ink">
                   Best value
                 </span>
               </>
@@ -84,55 +84,6 @@ export function Compare() {
       <p className="mt-10 text-center text-[15px] text-muted">
         Same deliverables as an agency. A fraction of the time and the price.
       </p>
-    </section>
-  );
-}
-
-/* ---------------- What's included ---------------- */
-export function Included() {
-  const items = [
-    ["Logo", "Every format you need: SVG, PNG, PDF, EPS."],
-    ["Brand guidelines", "One clear document so your brand stays consistent."],
-    ["Colors & typography", "A palette and fonts that work everywhere."],
-    ["Social media kit", "Profile pictures, covers and post templates."],
-    ["Stationery", "Business cards, letterhead and email signature."],
-    ["Mockups", "See your brand on real products before you print."],
-    ["Source files", "Fully editable files. Yours forever."],
-  ];
-  return (
-    <section className="bg-white py-24 md:py-32">
-      <div className="mx-auto grid max-w-[1400px] gap-16 px-5 md:px-10 lg:grid-cols-[1fr_1.1fr]">
-        <div>
-          <Eyebrow>What you get</Eyebrow>
-          <div className="mt-4">
-            <SectionTitle sub="We don’t stop at a logo. You get a complete identity, designed to make your business look established from the first day.">
-              A logo is one piece. <span className="text-ink/40">You get the whole brand.</span>
-            </SectionTitle>
-          </div>
-          <ul className="mt-10 space-y-3 text-[16px]">
-            {["Full ownership and copyright", "Print and web-ready formats", "One-time payment, no subscription"].map((t) => (
-              <li key={t} className="flex items-center gap-3">
-                <Check className="h-5 w-5 text-leaf" />
-                {t}
-              </li>
-            ))}
-          </ul>
-          <div className="mt-10">
-            <DarkButton href="#pricing">Start my brand</DarkButton>
-          </div>
-        </div>
-        <ol className="divide-y divide-line rounded-[30px] border border-line bg-paper">
-          {items.map(([t, d], i) => (
-            <li key={t} className="flex items-start gap-6 px-7 py-6">
-              <span className="font-mono text-[13px] text-muted">{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <p className="text-[19px] font-medium tracking-[-0.02em]">{t}</p>
-                <p className="mt-1 text-[15px] text-muted">{d}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
     </section>
   );
 }
@@ -173,7 +124,7 @@ export function Pricing({ spots }: { spots: number | null }) {
               )}
               <div className="relative flex items-center justify-between">
                 <p className="text-[22px] font-medium tracking-[-0.02em]">{p.name}</p>
-                {p.badge && <span className="rounded-full bg-gradient-brand px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-ink">{p.badge}</span>}
+                {p.badge && <span className="rounded-full bg-gradient-brand px-3 py-1 text-[13px] font-medium text-ink">{p.badge}</span>}
               </div>
               <p className="relative mt-8 flex items-start text-[72px] font-medium leading-none tracking-tightest">
                 <span className="mr-1 mt-2 text-[28px]">$</span>
@@ -202,7 +153,7 @@ export function Pricing({ spots }: { spots: number | null }) {
                 </p>
               </div>
 
-              <p className={`relative mt-8 font-mono text-[11px] uppercase tracking-[0.15em] ${dark ? "text-white/50" : "text-muted"}`}>
+              <p className={`relative mt-8 text-[13px] font-medium ${dark ? "text-white/50" : "text-muted"}`}>
                 {p.id === "basic" ? "Included" : p.id === "premium" ? "Everything in Basic, plus" : "Everything in Premium, plus"}
               </p>
               <ul className="relative mt-4 space-y-3">
@@ -251,7 +202,7 @@ export function Guarantee() {
             </Link>
           </div>
           <div className="space-y-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-white/50">Secure payment</p>
+            <p className="text-[13px] font-medium text-white/50">Secure payment</p>
             <div className="flex flex-wrap gap-2">
               {["Visa", "Mastercard", "Amex", "Apple Pay", "Google Pay"].map((m) => (
                 <span key={m} className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-[13px] text-white/80">
@@ -282,10 +233,10 @@ export function Promises() {
       <div className="mt-4">
         <SectionTitle>Five promises behind every brand.</SectionTitle>
       </div>
-      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {items.map(([t, d], i) => (
           <div key={t} className="rounded-[26px] border border-line bg-white p-7 shadow-card">
-            <span className="font-mono text-[13px] text-muted">{String(i + 1).padStart(2, "0")}</span>
+            <span className="text-[13px] font-medium text-muted">{String(i + 1).padStart(2, "0")}</span>
             <p className="mt-10 text-[19px] font-medium leading-tight tracking-[-0.02em]">{t}</p>
             <p className="mt-3 text-[15px] leading-relaxed text-muted">{d}</p>
           </div>
@@ -303,13 +254,13 @@ export function Process() {
     ["Refine, approve, launch", "Request changes until it’s right. Once approved, your final files are ready in your account."],
   ];
   return (
-    <section id="how" className="scroll-mt-24 bg-white py-24 md:py-32">
+    <section id="how" className="scroll-mt-24 bg-white py-14 md:py-20">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <Eyebrow>How it works</Eyebrow>
         <div className="mt-4">
           <SectionTitle>A remarkably simple process.</SectionTitle>
         </div>
-        <div className="mt-14 grid gap-4 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
           {steps.map(([t, d], i) => (
             <div key={t} className="relative overflow-hidden rounded-[30px] border border-line bg-paper p-8 md:p-10">
               {i === 1 && <div className="blob -right-20 -top-20 h-56 w-56 bg-lime/40" />}
@@ -389,7 +340,7 @@ export function Faq() {
 /* ---------------- Final call to action ---------------- */
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden px-5 py-28 text-center md:py-36">
+    <section className="relative overflow-hidden px-5 py-16 text-center md:py-24">
       <div className="blob left-1/2 top-1/2 h-[480px] w-[720px] -translate-x-1/2 -translate-y-1/2 bg-lime/35" />
       <div className="relative mx-auto max-w-4xl">
         <h2 className="text-[48px] font-medium leading-[1] tracking-tightest md:text-[88px]">
@@ -455,7 +406,7 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
   return (
     <div>
-      <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">{title}</p>
+      <p className="text-[13px] font-medium text-muted">{title}</p>
       <ul className="mt-4 space-y-2.5 text-[15px]">
         {links.map(([l, h]) => (
           <li key={l}>

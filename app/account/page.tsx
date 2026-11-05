@@ -35,7 +35,7 @@ export default async function Account() {
             className="flex flex-col gap-3 rounded-[24px] border border-line bg-white p-6 shadow-card transition hover:-translate-y-0.5 hover:shadow-float sm:flex-row sm:items-center sm:justify-between"
           >
             <div>
-              <p className="font-mono text-[12px] uppercase tracking-[0.15em] text-muted">Order #{orderRef(o.id)}</p>
+              <p className="text-[13px] font-medium text-muted">Order #{orderRef(o.id)}</p>
               <p className="mt-1 text-[19px] font-medium tracking-[-0.02em]">{packageLabel(o)}</p>
             </div>
             <div className="flex items-center gap-4">

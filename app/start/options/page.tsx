@@ -82,7 +82,7 @@ export default function Options({ searchParams }: { searchParams: { pkg?: string
                 <div className="flex items-start gap-4">
                   <input type="radio" name="choice" value="upsell" className="mt-1.5 h-5 w-5 accent-lime" />
                   <div>
-                    <span className="inline-block rounded-full bg-gradient-brand px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-ink">
+                    <span className="inline-block rounded-full bg-gradient-brand px-2.5 py-0.5 text-[13px] font-medium text-ink">
                       Recommended upgrade
                     </span>
                     <p className="mt-2 text-[20px] font-medium tracking-[-0.02em]">

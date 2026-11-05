@@ -24,7 +24,7 @@ export default async function AdminOrder({ params }: { params: { id: string } })
       </Link>
       <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-mono text-[12px] uppercase tracking-[0.15em] text-muted">Order #{orderRef(order.id)}</p>
+          <p className="text-[13px] font-medium text-muted">Order #{orderRef(order.id)}</p>
           <h1 className="mt-2 text-[32px] font-medium leading-[1.05] tracking-tightest md:text-[44px]">{packageLabel(order)}</h1>
           <p className="mt-2 text-[15px] text-muted">
             {order.email} · {formatUsd(order.amount_cents / 100)} · {new Date(order.created_at).toLocaleString("en-US")}
@@ -86,7 +86,7 @@ export default async function AdminOrder({ params }: { params: { id: string } })
                 {files.map((f) => (
                   <li key={f.id} className="flex items-center justify-between gap-3 py-3 text-[14px]">
                     <span className="truncate">
-                      <span className="mr-2 rounded-full bg-paper px-2 py-0.5 font-mono text-[11px] uppercase">{f.kind}</span>
+                      <span className="mr-2 rounded-full bg-paper px-2 py-0.5 text-[13px] font-medium">{f.kind}</span>
                       <a href={`/api/files/${f.id}/preview`} target="_blank" className="underline-offset-2 hover:underline">
                         {f.file_name}
                       </a>

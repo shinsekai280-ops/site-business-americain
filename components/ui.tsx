@@ -73,14 +73,16 @@ export function BrandLogo({ className = "", light = false }: { className?: strin
 }
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-muted">{children}</p>;
+  // Small labels above titles are hidden (cleaner look). Kept so existing code still compiles.
+  void children;
+  return null;
 }
 
 export function SectionTitle({ children, sub }: { children: React.ReactNode; sub?: React.ReactNode }) {
   return (
-    <div className="max-w-3xl">
-      <h2 className="text-[40px] font-medium leading-[1.05] tracking-tightest text-ink md:text-[60px]">{children}</h2>
-      {sub && <p className="mt-5 text-[18px] leading-relaxed text-muted md:text-[20px]">{sub}</p>}
+    <div className="mx-auto max-w-3xl text-center">
+      <h2 className="text-[36px] font-medium leading-[1.05] tracking-tightest text-ink md:text-[56px]">{children}</h2>
+      {sub && <p className="mx-auto mt-4 max-w-2xl text-[17px] leading-relaxed text-muted md:text-[19px]">{sub}</p>}
     </div>
   );
 }

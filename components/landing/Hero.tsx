@@ -81,7 +81,7 @@ function Showcase() {
             </span>
             <span className="leading-tight">
               <span className="block text-[14px] font-medium">First concepts delivered</span>
-              <span className="block font-mono text-[12px] text-muted">within 48 hours</span>
+              <span className="block text-[13px] font-medium text-muted">within 48 hours</span>
             </span>
           </div>
         </div>
@@ -90,7 +90,7 @@ function Showcase() {
           <div className="absolute inset-0 flex items-center justify-center text-[64px] md:text-[96px]">
             <Verra />
           </div>
-          <p className="absolute bottom-5 left-6 font-mono text-[11px] uppercase tracking-[0.2em] text-[#2B2118]/50">Verra · Skincare</p>
+          <p className="absolute bottom-5 left-6 text-[13px] font-medium text-[#2B2118]/50">Verra · Skincare</p>
         </div>
         <div className="relative h-[260px] overflow-hidden rounded-[26px] bg-[#16352B] md:h-auto">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(155,226,60,0.25),transparent_60%)]" />

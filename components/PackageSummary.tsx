@@ -6,7 +6,7 @@ import { Check } from "@/components/ui";
 export function PackageSummary({ current, basePath }: { current: Package; basePath: string }) {
   return (
     <div className="rounded-[28px] border border-line bg-white p-6 shadow-card md:p-8">
-      <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">Your package</p>
+      <p className="text-[13px] font-medium text-muted">Your package</p>
       <div className="mt-4 space-y-2">
         {site.packages.map((p) => {
           const active = p.id === current.id;
@@ -23,7 +23,7 @@ export function PackageSummary({ current, basePath }: { current: Package; basePa
                   {active && <Check className="h-3.5 w-3.5" />}
                 </span>
                 <span className="text-[15px] font-medium">{p.name}</span>
-                {p.badge && !active && <span className="hidden rounded-full bg-gradient-brand px-2 py-0.5 font-mono text-[10px] uppercase text-ink sm:inline">{p.badge}</span>}
+                {p.badge && !active && <span className="hidden rounded-full bg-gradient-brand px-2 py-0.5 text-[13px] font-medium text-ink sm:inline">{p.badge}</span>}
               </span>
               <span className="text-[15px]">from {formatUsd(p.priceUsd)}</span>
             </Link>
