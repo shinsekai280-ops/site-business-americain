@@ -47,7 +47,7 @@ Après chaque série de modifications : `npm run build` doit réussir, puis comm
 - **Jamais de faux avis, faux chiffres, faux logos clients ou fausses mentions presse.** Les avis et chiffres restent vides dans `config/site.ts` tant que l’élève n’en a pas de vrais ; les sections correspondantes se masquent toutes seules.
 - Ne jamais écrire « 100 % fait par nous », « designers salariés » ou « sans IA » si ce n’est pas vrai. Les prestataires sont présentés comme « partner designers ».
 - Les marques du portfolio de démonstration sont fictives : les remplacer par de vraies réalisations dès que possible.
-- Ne jamais afficher ni écrire les clés secrètes (`SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `STRIPE_WEBHOOK_SECRET`) dans le code ou dans la conversation. Elles vont uniquement dans Vercel → Settings → Environment Variables.
+- Ne jamais afficher ni écrire les clés secrètes (`SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `STRIPE_WEBHOOK_SECRET`) dans le code ou dans la conversation. Elles vont uniquement dans Vercel → Settings → Environments → Production (variables d’environnement).
 - Garder le site responsive (téléphone, tablette, ordinateur) : utiliser les classes Tailwind `sm:`, `md:`, `lg:` comme dans le reste du code.
 
 ## Portfolio (images uniques pour chaque élève)
@@ -60,12 +60,16 @@ Quand l'élève demande son portfolio, suis **docs/PORTFOLIO-PROMPTS.md** : tu i
 Suivre `INSTALLATION.md` avec l’élève, étape par étape. Lui demander une capture d’écran s’il bloque.
 
 Problèmes fréquents :
-- **Le paiement ne crée pas de commande** : vérifier `STRIPE_WEBHOOK_SECRET`, l’URL du webhook (`/api/stripe/webhook`), l’événement `checkout.session.completed`, puis Redeploy.
-- **Aucun e-mail reçu** : vérifier `RESEND_API_KEY` et `EMAIL_FROM`. Avec `onboarding@resend.dev`, Resend n’envoie qu’à l’adresse du compte Resend : vérifier son domaine dans Resend pour écrire aux clients.
+- **Variables obligatoires** (bouton Deploy) : `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `ADMIN_EMAILS`. Ajoutées ensuite : `STRIPE_WEBHOOK_SECRET` (étape 6), `EMAIL_FROM` (seulement après vérification du domaine dans Resend). `NEXT_PUBLIC_SITE_URL` est **facultative** : le site détecte tout seul son adresse (ne pas la remplir avec une adresse supposée).
+- **Le paiement ne crée pas de commande** : la page `/welcome` crée la commande après le paiement, et le webhook la crée aussi si le client ferme la page. Vérifier `STRIPE_SECRET_KEY` (mode test = `sk_test_`), puis `STRIPE_WEBHOOK_SECRET`, l’URL du webhook (`https://ADRESSE/api/stripe/webhook`) et l’événement `checkout.session.completed`, puis Redeploy.
+- **Aucun e-mail reçu** : regarder les spams. Sans `EMAIL_FROM`, l’expéditeur de test `onboarding@resend.dev` est utilisé et Resend n’envoie **qu’à l’adresse du compte Resend** : l’élève teste donc avec cette adresse (client et admin). Pour écrire aux vrais clients : vérifier son domaine dans Resend, puis ajouter `EMAIL_FROM`.
+- **Les boutons ne répondent plus / page 404 après un paiement** : la page était ouverte avant un redéploiement. Recharger (Cmd/Ctrl + Shift + R) et recommencer.
+- **Même e-mail pour client et admin** : c’est prévu. Le téléchargement final est bien enregistré (fin du remboursement) quand c’est le client de la commande qui télécharge, même s’il est aussi admin.
 - **« Payments are not connected yet »** : `STRIPE_SECRET_KEY` manquante, puis Redeploy.
 - **Pas d’accès à /admin** : l’e-mail doit être dans `ADMIN_EMAILS`, se connecter via `/login`.
 - **Erreur de table ou de bucket** : relancer `supabase/schema.sql` dans le SQL Editor de Supabase.
-- **Les variables ne sont pas prises en compte** : toujours faire **Redeploy** après les avoir modifiées dans Vercel.
+- **Les variables ne sont pas prises en compte** : toujours faire **Redeploy** après les avoir modifiées dans Vercel (Deployments → ⋯ → Redeploy), puis recharger le site.
+- **Clés Supabase** : utiliser l’onglet **Legacy API Keys** (anon + service_role). Ne pas cliquer sur les intégrations proposées par Vercel (Stripe, Resend, Supabase) : elles créent des variables en double.
 
 ## Comment fonctionne une commande (pour expliquer à l’élève)
 

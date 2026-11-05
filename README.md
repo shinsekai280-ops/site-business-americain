@@ -9,7 +9,7 @@ Site complet pour vendre un service (logo, identité de marque…) à des client
 
 ## Installer le site (sans coder)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fshinsekai280-ops%2Fsite-business-americain&project-name=brand-studio&repository-name=brand-studio&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,STRIPE_SECRET_KEY,STRIPE_WEBHOOK_SECRET,RESEND_API_KEY,EMAIL_FROM,ADMIN_EMAILS,NEXT_PUBLIC_SITE_URL&envDescription=Les%20cl%C3%A9s%20de%20tes%20comptes%20Supabase%2C%20Stripe%20et%20Resend&envLink=https%3A%2F%2Fgithub.com%2Fshinsekai280-ops%2Fsite-business-americain%2Fblob%2Fmain%2FINSTALLATION.md)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fshinsekai280-ops%2Fsite-business-americain&project-name=my-brand-studio&repository-name=my-brand-studio&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,SUPABASE_SERVICE_ROLE_KEY,STRIPE_SECRET_KEY,RESEND_API_KEY,ADMIN_EMAILS&envDescription=Les%20cl%C3%A9s%20de%20tes%20comptes%20Supabase%2C%20Stripe%20et%20Resend%20(voir%20INSTALLATION.md)&envLink=https%3A%2F%2Fgithub.com%2Fshinsekai280-ops%2Fsite-business-americain%2Fblob%2Fmain%2FINSTALLATION.md)
 
 Suis le fichier **[INSTALLATION.md](./INSTALLATION.md)** étape par étape.
 
@@ -24,5 +24,5 @@ Donne le fichier **[GUIDE.md](./GUIDE.md)** à Claude : il change le nom de ta m
 | `config/site.ts` | **Tous les réglages** : nom, prix, offres, options payantes, places par jour, lien de rendez-vous, vrais avis |
 | `lib/brief.ts` | Les 10 questions du brief |
 | `supabase/schema.sql` | La base de données, à coller une seule fois dans Supabase |
-| `components/showcase/logos.tsx` | Les logos de démonstration, à remplacer par tes vraies réalisations |
+| `docs/PORTFOLIO-PROMPTS.md` | La méthode pour créer ton portfolio unique (36 marques, prompts ChatGPT, images) |
 | `app/terms`, `app/privacy`, `app/refund-policy` | Les pages légales (modèles à faire valider) |

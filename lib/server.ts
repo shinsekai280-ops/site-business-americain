@@ -18,8 +18,9 @@ export function siteUrl() {
   } catch {
     // called outside a request
   }
-  // 2) fallback: NEXT_PUBLIC_SITE_URL
+  // 2) fallback: NEXT_PUBLIC_SITE_URL (optional), then the address Vercel gives the site
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
   return "http://localhost:3000";
 }
 
@@ -156,13 +157,14 @@ function emailLayout(title: string, body: string, cta?: { label: string; url: st
 }
 
 export async function sendEmail(to: string, subject: string, title: string, body: string, cta?: { label: string; url: string }) {
-  if (!process.env.RESEND_API_KEY || !process.env.EMAIL_FROM) {
+  if (!process.env.RESEND_API_KEY) {
     console.log(`[email skipped: RESEND not configured] to=${to} subject=${subject}`);
     return;
   }
   try {
     await new Resend(process.env.RESEND_API_KEY).emails.send({
-      from: process.env.EMAIL_FROM,
+      // Without a verified domain, Resend's test sender is used (emails only reach the Resend account's own address)
+      from: process.env.EMAIL_FROM || `${site.brandName} <onboarding@resend.dev>`,
       to,
       subject,
       html: emailLayout(title, body, cta),

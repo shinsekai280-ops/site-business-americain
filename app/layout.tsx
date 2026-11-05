@@ -5,7 +5,9 @@ import "@fontsource-variable/fraunces";
 import { site } from "@/config/site";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || `https://${site.domain}`;
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : `https://${site.domain}`);
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

@@ -1,106 +1,145 @@
 # Installation — étape par étape
 
-Compte environ 45 minutes la première fois. Tout est gratuit pour démarrer (sauf ton nom de domaine, environ 10 à 15 $ par an).
+Compte environ 45 minutes la première fois. Tout est gratuit pour démarrer (sauf ton nom de domaine plus tard, environ 10 à 15 $ par an).
 
-Garde un bloc-notes ouvert : tu vas copier plusieurs clés. **Ne les partage jamais** (ni en vidéo, ni sur Discord, ni par message).
+Garde un bloc-notes ouvert : tu vas copier plusieurs clés. **Ne les partage jamais** (ni en vidéo, ni en capture d’écran, ni sur Discord, ni par message).
 
 ---
 
 ## Étape 1 · Créer tes comptes
 
-| Service | À quoi il sert | Lien |
+| Service | À quoi il sert | Comment te connecter |
 |---|---|---|
 | GitHub | Stocker le code de ton site | github.com |
-| Vercel | Mettre ton site en ligne | vercel.com (connecte-toi avec GitHub) |
+| Vercel | Mettre ton site en ligne | vercel.com → **Continue with GitHub** |
 | Supabase | Comptes clients, commandes, fichiers | supabase.com |
 | Stripe | Encaisser les paiements | stripe.com |
-| Resend | Envoyer les e-mails automatiques | resend.com |
+| Resend | Envoyer les e-mails automatiques | resend.com → **avec ton adresse Gmail** (celle que tu consultes) |
 
-> Supabase gratuit = 2 projets actifs maximum. Si tu en as déjà 2, mets-en un en pause.
+> **Important pour Resend** : tant que tu n’as pas ton nom de domaine, Resend n’envoie les e-mails **qu’à l’adresse de ton compte Resend**. Utilise donc cette même adresse pour l’admin et pour tes commandes test.
 
 ---
 
 ## Étape 2 · Supabase (la base de données)
 
-1. **New project** → donne un nom (ex. `brand-studio`), choisis un mot de passe (garde-le), région **East US** (tes clients sont américains) → **Create**.
-2. Quand le projet est prêt : menu de gauche **SQL Editor** → **New query**.
-3. Ouvre le fichier `supabase/schema.sql` de ce dépôt, copie **tout** son contenu, colle-le, clique **Run**. Tu dois voir « Success ».
-4. Menu **Project Settings → API** (ou **API Keys**). Copie dans ton bloc-notes :
-   - `Project URL` → ce sera **NEXT_PUBLIC_SUPABASE_URL**
-   - clé `anon` `public` → **NEXT_PUBLIC_SUPABASE_ANON_KEY**
-   - clé `service_role` `secret` → **SUPABASE_SERVICE_ROLE_KEY** (secrète !)
+> Le plan gratuit autorise **2 projets actifs**. Si tu en as déjà 2 : ouvre le moins utilisé → ⚙️ **Project Settings** → **General** → tout en bas **Pause project** (rien n’est supprimé).
+
+1. Clique **New project** et remplis :
+   - **Project name** : le nom de ta marque (ex. `brandsmith`)
+   - **Database password** : clique **Generate a password**, puis **Copy**, et garde-le dans ton bloc-notes
+   - **Region** : **Americas → East US (North Virginia)** (tes clients sont américains)
+   - **Security** : **ne touche à rien** (les 2 premières cases cochées, la 3ᵉ décochée)
+2. Clique **Create new project** et attends 1 à 2 minutes.
+3. Menu de gauche → **SQL Editor** (icône `>_`) → **+** → **New snippet**.
+4. Ouvre le fichier [`supabase/schema.sql`](./supabase/schema.sql) de ce dépôt, copie **tout** son contenu, colle-le, clique **Run**.
+   Si Supabase affiche un avertissement, clique **Run this query**. Résultat attendu : **Success. No rows returned**.
+5. ⚙️ **Project Settings** → **API Keys** → onglet **Legacy API Keys** (« Legacy anon, service_role API keys »). Copie dans ton bloc-notes :
+   - la clé **anon / public** → ce sera `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - la clé **service_role / secret** (clique **Reveal**) → ce sera `SUPABASE_SERVICE_ROLE_KEY` (**ultra secrète**)
+6. Copie aussi l’adresse du projet (sur la page d’accueil du projet, ex. `https://abcdefgh.supabase.co`) → ce sera `NEXT_PUBLIC_SUPABASE_URL`.
 
 ---
 
 ## Étape 3 · Stripe (les paiements) — en mode TEST d’abord
 
-1. En haut à droite de Stripe, active **Mode test** (ou « Environnement de test »).
-2. **Développeurs → Clés API** → copie la **clé secrète** (`sk_test_…`) → **STRIPE_SECRET_KEY**.
-3. Le webhook se crée à l’étape 6 (il faut d’abord l’adresse de ton site).
+1. En haut à gauche, clique sur le nom de ton compte → **Passer sur un environnement de test** → **Mode test**. Une bande « Mode test » apparaît.
+2. Tape **Clés API** dans la barre de recherche → à la ligne **Clé secrète**, clique pour la révéler et copie-la (`sk_test_…`) → ce sera `STRIPE_SECRET_KEY`.
+   (La clé publique `pk_test_…` ne sert pas.)
 
 ---
 
 ## Étape 4 · Resend (les e-mails)
 
-1. **API Keys → Create API Key** → copie la clé (`re_…`) → **RESEND_API_KEY**.
-2. **EMAIL_FROM** :
-   - pour tester tout de suite : `Brand Studio <onboarding@resend.dev>` (ça n’envoie qu’à ta propre adresse e-mail Resend) ;
-   - pour tes vrais clients : **Domains → Add domain**, ajoute ton nom de domaine et suis les instructions, puis utilise par exemple `Brandsmith <hello@tondomaine.com>`.
+1. Menu de gauche **API Keys** → **Create API Key** :
+   - **Name** : le nom de ta marque
+   - **Permission** : **Full access**
+   - **Domain** : **All domains**
+2. Clique **Add** et copie la clé (`re_…`) → ce sera `RESEND_API_KEY`. Elle ne s’affiche qu’une fois.
 
 ---
 
 ## Étape 5 · Mettre le site en ligne avec Vercel
 
-1. Clique sur le bouton **Deploy with Vercel** du fichier README.
-2. Vercel crée une copie du site sur **ton** GitHub. Donne-lui un nom.
-3. Vercel te demande les clés une par une. Colle celles de ton bloc-notes :
+1. Ouvre le fichier [README.md](./README.md) et clique sur le bouton **Deploy with Vercel**.
+2. **Create Git Repository** : choisis ton compte GitHub, donne le nom de ta marque, laisse **Private** coché → **Create**.
+3. Vercel te demande 6 valeurs. Colle celles de ton bloc-notes :
 
-| Clé | Ce que tu mets |
+| Variable | Ce que tu colles |
 |---|---|
-| NEXT_PUBLIC_SUPABASE_URL | Étape 2 |
-| NEXT_PUBLIC_SUPABASE_ANON_KEY | Étape 2 |
-| SUPABASE_SERVICE_ROLE_KEY | Étape 2 |
-| STRIPE_SECRET_KEY | Étape 3 |
-| STRIPE_WEBHOOK_SECRET | Mets `a-remplir` pour l’instant (étape 6) |
-| RESEND_API_KEY | Étape 4 |
-| EMAIL_FROM | Étape 4 |
-| ADMIN_EMAILS | Ton adresse e-mail (celle qui aura accès à l’admin) |
-| NEXT_PUBLIC_SITE_URL | Mets `a-remplir` pour l’instant (étape 6) |
+| `NEXT_PUBLIC_SUPABASE_URL` | l’adresse du projet Supabase (`https://….supabase.co`) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | la clé **anon** |
+| `SUPABASE_SERVICE_ROLE_KEY` | la clé **service_role** |
+| `STRIPE_SECRET_KEY` | ta clé `sk_test_…` |
+| `RESEND_API_KEY` | ta clé `re_…` |
+| `ADMIN_EMAILS` | l’adresse de ton compte Resend (c’est elle qui aura accès à l’admin) |
 
-4. Clique **Deploy**. Attends 2 à 3 minutes. Ton site est en ligne sur une adresse du type `ton-projet.vercel.app`.
-
----
-
-## Étape 6 · Finir les réglages
-
-1. **Adresse du site** : dans Vercel → ton projet → **Settings → Environment Variables** → modifie `NEXT_PUBLIC_SITE_URL` avec l’adresse de ton site (ex. `https://ton-projet.vercel.app`, sans `/` à la fin).
-2. **Webhook Stripe** (en mode test) : Stripe → **Développeurs → Webhooks → Ajouter un endpoint** :
-   - URL : `https://ton-projet.vercel.app/api/stripe/webhook`
-   - Événement : `checkout.session.completed`
-   - Enregistre, puis copie le **Secret de signature** (`whsec_…`) et colle-le dans Vercel à la place de `STRIPE_WEBHOOK_SECRET`.
-3. Vercel → **Deployments** → sur le dernier déploiement, menu **⋯ → Redeploy**, pour prendre en compte les nouvelles valeurs.
+4. Si Vercel propose des **intégrations** (Stripe, Resend, Supabase) : **ne clique pas sur Add**, tu as déjà mis les clés.
+5. Clique **Deploy** et attends 1 à 2 minutes.
+6. Clique **Visit** et note l’adresse exacte de ton site dans la barre du navigateur (ex. `https://ta-marque-abc.vercel.app`). Vercel ajoute parfois des lettres au nom : c’est normal, le site s’adapte tout seul.
 
 ---
 
-## Étape 7 · Faire une commande test
+## Étape 6 · Le webhook Stripe (sécurité des paiements)
 
-1. Ouvre ton site, choisis une offre, mets ton e-mail.
-2. Au paiement, utilise la carte de test Stripe : `4242 4242 4242 4242`, date future, CVC `123`.
-3. Tu arrives dans ton espace client : remplis le brief.
-4. Va sur `/login` avec ton e-mail admin → **Admin** → ouvre la commande → dépose une image dans « Upload concepts ».
-5. Reviens côté client : note le concept, puis dépose un fichier final côté admin et teste le téléchargement.
+Il confirme chaque paiement à ton site, même si le client ferme la page trop tôt.
 
-Si tout fonctionne : bravo, ton site est prêt.
+1. Stripe (toujours en mode test) → tape **Webhooks** dans la recherche → **Ajouter une destination**.
+2. Événements : cherche `checkout.session.completed`, coche-le → **Continuer**.
+3. Type : **Endpoint webhook** → **Continuer**.
+4. URL de l’endpoint : `https://TON-ADRESSE.vercel.app/api/stripe/webhook` (ton adresse de l’étape 5).
+5. **Créer la destination**, puis à **Clé secrète de signature** clique **Révéler** et copie la clé `whsec_…`.
+6. Vercel → ton projet → **Settings** → **Environments** → **Production** → **Add Environment Variable** :
+   - Key : `STRIPE_WEBHOOK_SECRET`
+   - Value : ta clé `whsec_…`
+   - **Save**
+7. Clique **Redeploy** dans le message qui apparaît (ou **Deployments** → **⋯** sur la première ligne → **Redeploy**). Attends que le statut soit **Ready**.
+
+> Après chaque redéploiement, **recharge les pages déjà ouvertes** du site (Cmd + Shift + R sur Mac, Ctrl + Shift + R sur Windows). Une page ouverte avant le redéploiement peut avoir des boutons qui ne répondent plus.
 
 ---
 
-## Étape 8 · Passer en réel
+## Étape 7 · Faire une commande test complète
 
-1. **Nom de domaine** : Vercel → **Settings → Domains** → ajoute ton domaine et suis les instructions. Mets ensuite à jour `NEXT_PUBLIC_SITE_URL`.
-2. **Stripe en mode réel** : active ton compte Stripe (infos de ta société), puis remplace `STRIPE_SECRET_KEY` par la clé `sk_live_…` et recrée le webhook en mode réel (nouveau `whsec_…`).
-3. **Pages légales** : complète `legalName` et `legalAddress` dans `config/site.ts` et fais relire tes pages Terms, Privacy et Refund policy.
-4. **Redeploy**.
+Utilise **l’adresse de ton compte Resend** comme client (c’est la seule qui reçoit les e-mails pour l’instant). Pense à regarder les **spams** et à cliquer sur **Non spam**.
+
+1. Ouvre ton site → **Pricing** → choisis une offre → mets ton e-mail → **See my options** → choisis une option → paiement.
+2. Carte de test Stripe : `4242 4242 4242 4242` · date `12/34` · CVC `123` · code postal `10001`.
+3. Tu arrives dans ton espace client (et tu reçois « Order confirmed »). Remplis le **brief** et envoie-le (tu reçois « Brief received » en tant qu’admin).
+4. Clique **Admin** en haut → ouvre la commande → **Upload concepts** → choisis une image → **Upload file**. Le client reçoit « Your concepts are ready ».
+5. Côté client : le concept s’affiche avec le filigrane (nom de ta marque, numéro de commande et e-mail du client).
+6. Note **4/10** avec un commentaire → statut **Revision requested** (e-mail admin). Dépose un 2ᵉ concept côté admin.
+7. Note **8/10** → statut **Approved**.
+8. Côté admin : **Upload final files** → envoie un fichier.
+9. Côté client : coche la case → **Download**. Tu reçois « Final files downloaded » et, côté admin, le bloc devient noir : **Not refundable**.
+
+Si tout fonctionne : ton site est prêt.
+
+---
+
+## Étape 8 · Personnaliser et créer ton portfolio
+
+1. Ouvre Claude, donne-lui ce dépôt et le fichier [GUIDE.md](./GUIDE.md) : il change ton nom de marque, tes prix, tes offres et tes textes.
+2. Dis-lui : **« Crée mon portfolio en suivant docs/PORTFOLIO-PROMPTS.md »**. Il invente 36 marques fictives **uniques**, te prépare un PDF de prompts pour ChatGPT, puis met tes images sur le site.
+
+---
+
+## Étape 9 · Passer en réel (quand tu es prêt à vendre)
+
+1. **Nom de domaine** : Vercel → **Settings** → **Domains** → ajoute ton domaine et suis les instructions.
+2. **E-mails à tes vrais clients** : Resend → **Domains** → **Add domain** → ajoute les enregistrements DNS demandés. Une fois le domaine vérifié, ajoute dans Vercel la variable `EMAIL_FROM` avec par exemple `Ta Marque <hello@tondomaine.com>`. Tes e-mails arrivent alors à tous tes clients, et plus en spam.
+3. **Stripe en réel** : active ton compte (infos de ta société), quitte le mode test, copie la clé `sk_live_…` et remplace `STRIPE_SECRET_KEY` dans Vercel. Recrée le webhook (étape 6) en mode réel et remplace `STRIPE_WEBHOOK_SECRET` par le nouveau `whsec_…`.
+4. **Pages légales** : complète `legalName` et `legalAddress` dans `config/site.ts` et fais relire Terms, Privacy et Refund policy.
+5. **Redeploy**, puis refais une commande avec une vraie carte et rembourse-la depuis Stripe pour vérifier.
+
+---
 
 ## En cas de souci
 
-Ouvre Claude, donne-lui le fichier `GUIDE.md` et décris ce qui bloque (avec une capture d’écran).
+| Problème | Solution |
+|---|---|
+| Les boutons ne répondent plus | Recharge la page (Cmd/Ctrl + Shift + R) : elle date d’avant le dernier déploiement. |
+| Aucun e-mail reçu | Regarde les spams. Sans domaine vérifié, seuls les e-mails vers l’adresse de ton compte Resend arrivent. |
+| Le bouton Admin n’apparaît pas | Vérifie `ADMIN_EMAILS` dans Vercel (même adresse que celle avec laquelle tu te connectes), puis Redeploy. |
+| Vercel ne trouve pas ton dépôt GitHub | Vercel → **Adjust GitHub App Permissions** → ajoute ton dépôt → **Save**. |
+| Supabase : pas d’onglet « Legacy API Keys » | Donne une capture à Claude avec le fichier GUIDE.md. |
+| Autre chose | Ouvre Claude, donne-lui le fichier `GUIDE.md` et décris ce qui bloque (avec une capture d’écran, **sans clé visible**). |
