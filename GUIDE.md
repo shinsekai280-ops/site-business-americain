@@ -33,7 +33,8 @@ L’élève est débutant : parle simplement, en français, une étape à la foi
 | Couleurs du dégradé | `app/globals.css` (`.text-gradient`, `.bg-gradient-brand`) et `tailwind.config.ts` (`lemon`, `lime`, `leaf`) |
 | Logo de la marque (en haut à gauche) | `components/ui.tsx` → `BrandLogo` |
 | Textes de la page de vente | `components/landing/Hero.tsx`, `Sections.tsx`, `Work.tsx` |
-| Portfolio (marques de démonstration) | `components/showcase/logos.tsx` et `components/landing/Work.tsx` |
+| Portfolio « Our recent work » (projets, secteurs, 2 images par projet) | `config/site.ts` → `portfolio` (images dans `public/work/`) |
+| Images de la section « A logo is one piece » | `config/site.ts` → `includedImages` (images dans `public/included/`) |
 | Photos du haut de page | `components/landing/Hero.tsx` → `Showcase` (mettre les images dans `public/showcase/` et utiliser `<img>`) |
 | Questions du brief | `lib/brief.ts` |
 | Pages légales | `app/terms`, `app/privacy`, `app/refund-policy` |
@@ -48,6 +49,15 @@ Après chaque série de modifications : `npm run build` doit réussir, puis comm
 - Les marques du portfolio de démonstration sont fictives : les remplacer par de vraies réalisations dès que possible.
 - Ne jamais afficher ni écrire les clés secrètes (`SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `STRIPE_WEBHOOK_SECRET`) dans le code ou dans la conversation. Elles vont uniquement dans Vercel → Settings → Environment Variables.
 - Garder le site responsive (téléphone, tablette, ordinateur) : utiliser les classes Tailwind `sm:`, `md:`, `lg:` comme dans le reste du code.
+
+## Ajouter des projets au portfolio
+
+L’élève prépare ses projets à l’avance avec ChatGPT (logo + mise en situation) et te donne les images. Pour chaque projet :
+1. Renommer les 2 images en `nom-du-projet-1.jpg` et `nom-du-projet-2.jpg` (minuscules, tirets) et les mettre dans `public/work/`.
+2. Ajouter une ligne dans `portfolio` de `config/site.ts` : `{ name: "Nom", industry: "Secteur", featured: true, images: ["/work/nom-du-projet-1.jpg", "/work/nom-du-projet-2.jpg"] }`.
+3. `featured: true` = visible dans l’onglet « Featured » (en mettre 4 à 6). Un onglet par secteur se crée tout seul.
+4. Supprimer les projets de démonstration qui n’ont pas d’image.
+5. `npm run build`, puis commit et push.
 
 ## Étape 3 · Aider à l’installation
 
