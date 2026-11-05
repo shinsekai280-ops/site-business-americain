@@ -13,6 +13,7 @@ export type Upsell = {
   priceUsd: number; // total price if the client accepts (replaces the package price)
   pitch: string;
   includes: string[];
+  revisionLimit: number | null; // revisions allowed with this option (null = unlimited)
 };
 
 export type Package = {
@@ -27,6 +28,7 @@ export type Package = {
   delivery: string;
   includes: string[]; // shown with a check
   excludes: string[]; // shown greyed out (what the client is missing)
+  revisionLimit: number | null; // revisions included (null = unlimited)
   upsell: Upsell;
 };
 
@@ -98,12 +100,14 @@ export const site = {
         "Brand guidelines",
         "Social media kit",
       ],
+      revisionLimit: 2,
       upsell: {
         enabled: true,
         name: "Basic+",
         priceUsd: 375,
         pitch: "Get more room to perfect your logo.",
         includes: ["5 revisions instead of 2", "Priority delivery", "Animated logo for social media"],
+        revisionLimit: 5,
       },
     },
     {
@@ -130,12 +134,14 @@ export const site = {
         "Delivered in 2 days",
       ],
       excludes: [],
+      revisionLimit: 3,
       upsell: {
         enabled: true,
         name: "Launch Pack",
         priceUsd: 690,
         pitch: "Launch faster with unlimited revisions and priority service.",
         includes: ["Unlimited revisions", "Priority delivery", "Animated logo", "Dedicated project manager"],
+        revisionLimit: null,
       },
     },
     {
@@ -161,12 +167,14 @@ export const site = {
         "Delivered in 5 business days",
       ],
       excludes: [],
+      revisionLimit: null,
       upsell: {
         enabled: true,
         name: "Creative Director Bundle",
         priceUsd: 2499,
         pitch: "Your brand led personally by our creative director.",
         includes: ["Led by our creative director", "Top priority on every step", "Brand launch strategy session"],
+        revisionLimit: null,
       },
     },
   ] as Package[],
