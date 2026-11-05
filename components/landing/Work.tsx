@@ -30,6 +30,7 @@ export function Work() {
             <button
               key={i}
               onClick={() => setActive(i)}
+              data-filter={i}
               className={`whitespace-nowrap rounded-full px-4 py-2 text-[14px] transition ${
                 active === i ? "bg-ink text-white shadow-pill" : "border border-line bg-white text-ink/70 hover:text-ink"
               }`}
@@ -44,7 +45,7 @@ export function Work() {
         {list.map(({ name, industry, Logo }) => {
           const s = backgrounds[name];
           return (
-            <article key={name} className="group overflow-hidden rounded-[28px] border border-white bg-white p-2 shadow-card transition hover:-translate-y-1 hover:shadow-float">
+            <article key={name} data-industry={industry} className="group overflow-hidden rounded-[28px] border border-white bg-white p-2 shadow-card transition hover:-translate-y-1 hover:shadow-float">
               <div className={`relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[22px] ${s.bg}`}>
                 <div className={`${s.size} transition duration-500 group-hover:scale-105`}>
                   <Logo color={s.logo} />
