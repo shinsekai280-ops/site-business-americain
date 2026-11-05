@@ -50,13 +50,10 @@ Après chaque série de modifications : `npm run build` doit réussir, puis comm
 - Ne jamais afficher ni écrire les clés secrètes (`SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `RESEND_API_KEY`, `STRIPE_WEBHOOK_SECRET`) dans le code ou dans la conversation. Elles vont uniquement dans Vercel → Settings → Environment Variables.
 - Garder le site responsive (téléphone, tablette, ordinateur) : utiliser les classes Tailwind `sm:`, `md:`, `lg:` comme dans le reste du code.
 
-## Ajouter des projets au portfolio
+## Portfolio (images uniques pour chaque élève)
 
-L’élève prépare ses projets à l’avance avec ChatGPT : 1 image « moodboard » par projet (format paysage 3:2), 4 projets par secteur. Pour chaque projet :
-1. Renommer l’image comme indiqué dans `portfolio` de `config/site.ts` (ex. `veyra-ai.jpg`) et la mettre dans `public/work/`.
-2. Pour un nouveau projet, ajouter une ligne dans `portfolio` : `{ name: "Nom", industry: "Secteur", featured: false, image: "/work/nom.jpg" }`.
-3. `featured: true` = visible dans l’onglet « Featured » (en garder 8). Un onglet par secteur se crée tout seul.
-4. `npm run build`, puis commit et push.
+Le kit est livré **sans images de portfolio** : chaque élève crée les siennes. Les projets de `config/site.ts` → `portfolio` sont des exemples à remplacer entièrement.
+Quand l'élève demande son portfolio, suis **docs/PORTFOLIO-PROMPTS.md** : tu inventes 36 marques fictives uniques, tu écris les 36 prompts, tu crées le PDF pour ChatGPT, puis tu intègres les images.
 
 ## Étape 3 · Aider à l’installation
 
