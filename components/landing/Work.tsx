@@ -3,10 +3,34 @@
 import { useState } from "react";
 import { site, formatUsd } from "@/config/site";
 import { DarkButton, SectionTitle } from "@/components/ui";
-import { BrandVisual } from "@/components/showcase/Visual";
 
-const PER_PAGE = 2;
+const PER_PAGE = 4;
 const fromPrice = formatUsd(Math.min(...site.packages.map((p) => p.priceUsd)));
+
+/** The moodboard image, or a neutral placeholder while the file is not in /public/work yet. */
+function Moodboard({ name, image }: { name: string; image: string }) {
+  const [failed, setFailed] = useState(!image);
+  if (failed) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#EFEFEB,#E4E4DE)]">
+        <span className="text-[22px] font-medium tracking-[-0.02em] text-ink/40 md:text-[28px]">{name}</span>
+      </div>
+    );
+  }
+  // eslint-disable-next-line @next/next/no-img-element
+  return (
+    <img
+      src={image}
+      alt={`${name} brand identity`}
+      onError={() => setFailed(true)}
+      // the error can fire before the page is interactive: check again once mounted
+      ref={(el) => {
+        if (el && el.complete && el.naturalWidth === 0) setFailed(true);
+      }}
+      className="h-full w-full object-cover"
+    />
+  );
+}
 
 export function Work() {
   const tabs = ["Featured", ...Array.from(new Set(site.portfolio.map((p) => p.industry)))];
@@ -43,22 +67,18 @@ export function Work() {
         </div>
       </div>
 
-      <div className="mt-8 space-y-8">
+      <div className="mt-8 grid gap-x-5 gap-y-8 md:grid-cols-2">
         {shown.map((p) => (
           <article key={p.name}>
-            <div className="grid gap-3 md:grid-cols-2">
-              <div className="aspect-[16/10] overflow-hidden rounded-[20px]">
-                <BrandVisual brand={p.name} image={p.images[0]} variant="logo" />
-              </div>
-              <div className="aspect-[16/10] overflow-hidden rounded-[20px]">
-                <BrandVisual brand={p.name} image={p.images[1]} variant="card" />
+            <div className="rounded-[26px] border border-line bg-white p-2.5 shadow-card md:p-3">
+              <div className="aspect-[3/2] overflow-hidden rounded-[16px]">
+                <Moodboard key={p.image} name={p.name} image={p.image} />
               </div>
             </div>
-            <p className="mt-3 flex items-center gap-2 border-t border-line pt-3 text-[15px]">
-              <span aria-hidden>→</span>
-              <span className="font-medium">{p.name}</span>
-              <span className="text-muted">· {p.industry}</span>
-            </p>
+            <div className="mt-3 flex items-baseline justify-between gap-4 px-1">
+              <p className="text-[17px] font-medium tracking-[-0.01em]">{p.name}</p>
+              <p className="text-[13px] text-muted">{p.industry}</p>
+            </div>
           </article>
         ))}
       </div>

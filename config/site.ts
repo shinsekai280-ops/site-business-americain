@@ -74,18 +74,47 @@ export const site = {
   reviews: [] as { name: string; country: string; date: string; text: string }[],
 
   /* ---------- Portfolio ("Our recent work") ----------
-     2 images per project, side by side. Put your images in /public/work/ and write the path, e.g. "/work/verra-1.jpg".
-     While an image path is empty, a demo visual is shown instead. "featured: true" = shown in the first tab. */
+     4 projects per industry, 1 moodboard image per project (landscape 3:2, e.g. 1536 x 1024).
+     Put the images in /public/work/ with the exact file name below. Missing image = neutral placeholder.
+     "featured: true" = shown in the first tab ("Featured"). One tab is created per industry automatically. */
   portfolio: [
-    { name: "Verra", industry: "Beauty", featured: true, images: ["", ""] },
-    { name: "Northline Capital", industry: "Fintech", featured: true, images: ["", ""] },
-    { name: "Kinetic", industry: "SaaS", featured: true, images: ["", ""] },
-    { name: "Oriel Hotels", industry: "Hospitality", featured: true, images: ["", ""] },
-    { name: "Lumen Health", industry: "Health & wellness", featured: false, images: ["", ""] },
-    { name: "Halden", industry: "Real estate", featured: false, images: ["", ""] },
-    { name: "Fieldwork Coffee", industry: "Food & drink", featured: false, images: ["", ""] },
-    { name: "Maison Sel", industry: "E-commerce", featured: false, images: ["", ""] },
-  ] as { name: string; industry: string; featured: boolean; images: [string, string] }[],
+    { name: "Veyra AI", industry: "AI startups", featured: true, image: "/work/veyra-ai.jpg" },
+    { name: "Synthra", industry: "AI startups", featured: true, image: "/work/synthra.jpg" },
+    { name: "Kairo", industry: "AI startups", featured: false, image: "/work/kairo.jpg" },
+    { name: "Loopmind", industry: "AI startups", featured: false, image: "/work/loopmind.jpg" },
+    { name: "Tasklane", industry: "SaaS", featured: true, image: "/work/tasklane.jpg" },
+    { name: "Pulsebase", industry: "SaaS", featured: false, image: "/work/pulsebase.jpg" },
+    { name: "Shiftly", industry: "SaaS", featured: false, image: "/work/shiftly.jpg" },
+    { name: "Clearform", industry: "SaaS", featured: false, image: "/work/clearform.jpg" },
+    { name: "Stride Lab", industry: "E-commerce", featured: true, image: "/work/stride-lab.jpg" },
+    { name: "Hearth & Clay", industry: "E-commerce", featured: false, image: "/work/hearth-clay.jpg" },
+    { name: "Wildtail", industry: "E-commerce", featured: false, image: "/work/wildtail.jpg" },
+    { name: "Aurum Atelier", industry: "E-commerce", featured: false, image: "/work/aurum-atelier.jpg" },
+    { name: "Solène", industry: "Beauty", featured: true, image: "/work/solene.jpg" },
+    { name: "Velours", industry: "Beauty", featured: false, image: "/work/velours.jpg" },
+    { name: "Nuda", industry: "Beauty", featured: false, image: "/work/nuda.jpg" },
+    { name: "Ambre Botanics", industry: "Beauty", featured: false, image: "/work/ambre-botanics.jpg" },
+    { name: "Kinesis Physio", industry: "Health & wellness", featured: true, image: "/work/kinesis-physio.jpg" },
+    { name: "Calmora", industry: "Health & wellness", featured: false, image: "/work/calmora.jpg" },
+    { name: "Vitalis Labs", industry: "Health & wellness", featured: false, image: "/work/vitalis-labs.jpg" },
+    { name: "Haven Dental", industry: "Health & wellness", featured: false, image: "/work/haven-dental.jpg" },
+    { name: "Stonegate Realty", industry: "Real estate", featured: true, image: "/work/stonegate-realty.jpg" },
+    { name: "Meridian Homes", industry: "Real estate", featured: false, image: "/work/meridian-homes.jpg" },
+    { name: "Arcadia Living", industry: "Real estate", featured: false, image: "/work/arcadia-living.jpg" },
+    { name: "Keystone Lofts", industry: "Real estate", featured: false, image: "/work/keystone-lofts.jpg" },
+    { name: "Halvorsen Partners", industry: "Consulting", featured: false, image: "/work/halvorsen-partners.jpg" },
+    { name: "Northbridge Advisory", industry: "Consulting", featured: false, image: "/work/northbridge-advisory.jpg" },
+    { name: "Clarity Strategy Group", industry: "Consulting", featured: false, image: "/work/clarity-strategy-group.jpg" },
+    { name: "Lattice Tax & Advisory", industry: "Consulting", featured: false, image: "/work/lattice-tax-advisory.jpg" },
+    { name: "Studio Kinsa", industry: "Agencies", featured: false, image: "/work/studio-kinsa.jpg" },
+    { name: "Bolt Media", industry: "Agencies", featured: false, image: "/work/bolt-media.jpg" },
+    { name: "Fable & Frame", industry: "Agencies", featured: false, image: "/work/fable-frame.jpg" },
+    { name: "Outpost PR", industry: "Agencies", featured: false, image: "/work/outpost-pr.jpg" },
+    { name: "Casa Albera", industry: "Hospitality", featured: true, image: "/work/casa-albera.jpg" },
+    { name: "Ember & Oak", industry: "Hospitality", featured: false, image: "/work/ember-oak.jpg" },
+    { name: "Salt House", industry: "Hospitality", featured: false, image: "/work/salt-house.jpg" },
+    { name: "The Linden", industry: "Hospitality", featured: false, image: "/work/the-linden.jpg" },
+  ] as { name: string; industry: string; featured: boolean; image: string }[],
 
   /* ---------- "A logo is one piece" section images ----------
      Put your images in /public/included/ and write the path. Empty = demo visual. */

@@ -33,7 +33,7 @@ L’élève est débutant : parle simplement, en français, une étape à la foi
 | Couleurs du dégradé | `app/globals.css` (`.text-gradient`, `.bg-gradient-brand`) et `tailwind.config.ts` (`lemon`, `lime`, `leaf`) |
 | Logo de la marque (en haut à gauche) | `components/ui.tsx` → `BrandLogo` |
 | Textes de la page de vente | `components/landing/Hero.tsx`, `Sections.tsx`, `Work.tsx` |
-| Portfolio « Our recent work » (projets, secteurs, 2 images par projet) | `config/site.ts` → `portfolio` (images dans `public/work/`) |
+| Portfolio « Our recent work » (4 projets par secteur, 1 image moodboard par projet) | `config/site.ts` → `portfolio` (images dans `public/work/`) |
 | Images de la section « A logo is one piece » | `config/site.ts` → `includedImages` (images dans `public/included/`) |
 | Photos du haut de page | `components/landing/Hero.tsx` → `Showcase` (mettre les images dans `public/showcase/` et utiliser `<img>`) |
 | Questions du brief | `lib/brief.ts` |
@@ -52,12 +52,11 @@ Après chaque série de modifications : `npm run build` doit réussir, puis comm
 
 ## Ajouter des projets au portfolio
 
-L’élève prépare ses projets à l’avance avec ChatGPT (logo + mise en situation) et te donne les images. Pour chaque projet :
-1. Renommer les 2 images en `nom-du-projet-1.jpg` et `nom-du-projet-2.jpg` (minuscules, tirets) et les mettre dans `public/work/`.
-2. Ajouter une ligne dans `portfolio` de `config/site.ts` : `{ name: "Nom", industry: "Secteur", featured: true, images: ["/work/nom-du-projet-1.jpg", "/work/nom-du-projet-2.jpg"] }`.
-3. `featured: true` = visible dans l’onglet « Featured » (en mettre 4 à 6). Un onglet par secteur se crée tout seul.
-4. Supprimer les projets de démonstration qui n’ont pas d’image.
-5. `npm run build`, puis commit et push.
+L’élève prépare ses projets à l’avance avec ChatGPT : 1 image « moodboard » par projet (format paysage 3:2), 4 projets par secteur. Pour chaque projet :
+1. Renommer l’image comme indiqué dans `portfolio` de `config/site.ts` (ex. `veyra-ai.jpg`) et la mettre dans `public/work/`.
+2. Pour un nouveau projet, ajouter une ligne dans `portfolio` : `{ name: "Nom", industry: "Secteur", featured: false, image: "/work/nom.jpg" }`.
+3. `featured: true` = visible dans l’onglet « Featured » (en garder 8). Un onglet par secteur se crée tout seul.
+4. `npm run build`, puis commit et push.
 
 ## Étape 3 · Aider à l’installation
 
