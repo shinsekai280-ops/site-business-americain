@@ -7,21 +7,24 @@ import { hasSupabase, supabaseAdmin } from "@/lib/supabase";
 
 /* ---------------- URLs ---------------- */
 export function siteUrl() {
+  // 1) the address the request arrived on (always right, even if the env variable is outdated)
+  try {
+    const h = headers();
+    const host = h.get("x-forwarded-host") || h.get("host");
+    if (host) {
+      const proto = h.get("x-forwarded-proto") || (host.startsWith("localhost") ? "http" : "https");
+      return `${proto}://${host}`;
+    }
+  } catch {
+    // called outside a request
+  }
+  // 2) fallback: NEXT_PUBLIC_SITE_URL
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
-  const h = headers();
-  const host = h.get("x-forwarded-host") || h.get("host") || "localhost:3000";
-  const proto = h.get("x-forwarded-proto") || (host.startsWith("localhost") ? "http" : "https");
-  return `${proto}://${host}`;
+  return "http://localhost:3000";
 }
 
-/** Address the visitor is on right now (used for the Stripe return pages, so they always come back to the same site). */
-export function requestUrl() {
-  const h = headers();
-  const host = h.get("x-forwarded-host") || h.get("host");
-  if (!host) return siteUrl();
-  const proto = h.get("x-forwarded-proto") || (host.startsWith("localhost") ? "http" : "https");
-  return `${proto}://${host}`;
-}
+/** Same as siteUrl (kept for the Stripe return pages). */
+export const requestUrl = siteUrl;
 
 /* ---------------- Stripe ---------------- */
 export function stripe() {
