@@ -125,11 +125,27 @@ Si tout fonctionne : ton site est prêt.
 
 ## Étape 9 · Passer en réel (quand tu es prêt à vendre)
 
-1. **Nom de domaine** : Vercel → **Settings** → **Domains** → ajoute ton domaine et suis les instructions.
-2. **E-mails à tes vrais clients** : Resend → **Domains** → **Add domain** → ajoute les enregistrements DNS demandés. Une fois le domaine vérifié, ajoute dans Vercel la variable `EMAIL_FROM` avec par exemple `Ta Marque <hello@tondomaine.com>`. Tes e-mails arrivent alors à tous tes clients, et plus en spam.
-3. **Stripe en réel** : active ton compte (infos de ta société), quitte le mode test, copie la clé `sk_live_…` et remplace `STRIPE_SECRET_KEY` dans Vercel. Recrée le webhook (étape 6) en mode réel et remplace `STRIPE_WEBHOOK_SECRET` par le nouveau `whsec_…`.
-4. **Pages légales** : complète `legalName` et `legalAddress` dans `config/site.ts` et fais relire Terms, Privacy et Refund policy.
-5. **Redeploy**, puis refais une commande avec une vraie carte et rembourse-la depuis Stripe pour vérifier.
+1. **Vercel Pro (20 $/mois)** : le plan gratuit de Vercel est réservé aux projets non commerciaux. Avant ta première vraie vente : Vercel → **Settings** → **Billing** → passe au plan **Pro**.
+2. **Nom de domaine** (≈ 12 $/an) : Vercel → **Settings** → **Domains** → ajoute ton domaine et suis les instructions.
+3. **E-mails à tes vrais clients** : Resend → **Domains** → **Add domain** → ajoute les enregistrements DNS demandés. Une fois le domaine vérifié, ajoute dans Vercel la variable `EMAIL_FROM` avec par exemple `Ta Marque <hello@tondomaine.com>`. Tes e-mails arrivent alors à tous tes clients, et plus en spam.
+4. **Stripe en réel** : active ton compte (infos de ta société), quitte le mode test, copie la clé `sk_live_…` et remplace `STRIPE_SECRET_KEY` dans Vercel. Recrée le webhook (étape 6) en mode réel et remplace `STRIPE_WEBHOOK_SECRET` par le nouveau `whsec_…`.
+5. **Pages légales** : complète `legalName` et `legalAddress` dans `config/site.ts` et fais relire Terms, Privacy et Refund policy.
+6. **Redeploy**, puis refais une commande avec une vraie carte et rembourse-la depuis Stripe pour vérifier.
+
+---
+
+### Quand les outils deviennent payants
+
+| Outil | Gratuit | Payant quand… |
+|---|---|---|
+| Claude | — | abonnement payant dès le départ (≈ 20 $/mois) |
+| Vercel | pour préparer et tester | dès ta 1re vraie vente : Pro 20 $/mois |
+| Supabase | 500 Mo de données, 1 Go de fichiers | plus de 1 Go de fichiers clients (≈ 100 à 200 commandes) : Pro 25 $/mois |
+| Resend | 3 000 e-mails/mois, 100/jour | plus de ≈ 10 commandes par jour : Pro 20 $/mois |
+| Stripe | pas d'abonnement | ≈ 5 % par vente avec une carte américaine (3,15 % + 0,25 € + 2 % de conversion) |
+| Nom de domaine | — | ≈ 12 $/an |
+
+Le site garde ton projet Supabase gratuit actif tout seul (une petite vérification automatique chaque jour), même sans commande pendant une semaine.
 
 ---
 
