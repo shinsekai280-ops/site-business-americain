@@ -1,5 +1,5 @@
 -- ============================================================
---  Brandsmith site — database setup
+--  Brand studio site — database setup
 --  Paste this whole file in Supabase > SQL Editor > New query, then click "Run".
 --  You can run it again safely.
 -- ============================================================

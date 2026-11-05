@@ -55,14 +55,16 @@ export function LightButton({ href, children, size = "md" }: { href: string; chi
   );
 }
 
-/** Brandsmith logo (mark + wordmark) */
+/** Brand logo: rounded square with the first letter of the brand name + the name in lowercase (all from config/site.ts) */
 export function BrandLogo({ className = "", light = false }: { className?: string; light?: boolean }) {
   const c = light ? "#FFFFFF" : "#0B0B0F";
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
       <svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden>
         <rect x="3" y="3" width="26" height="26" rx="8" fill={c} />
-        <path d="M11 9.5h7.2a4.1 4.1 0 0 1 .9 8.1 4.4 4.4 0 0 1-1.2 8.9H11V9.5Z" fill="none" stroke={light ? "#0B0B0F" : "#FFFFFF"} strokeWidth="2.6" strokeLinejoin="round" />
+        <text x="16" y="22.5" textAnchor="middle" fontSize="17" fontWeight="800" fontFamily="Inter Variable, Inter, Arial, sans-serif" fill={light ? "#0B0B0F" : "#FFFFFF"}>
+          {site.brandName.trim().charAt(0).toUpperCase()}
+        </text>
         <circle cx="23.5" cy="8.5" r="3" fill="#9BE23C" />
       </svg>
       <span className="text-[22px] font-bold tracking-[-0.04em]" style={{ color: c }}>
