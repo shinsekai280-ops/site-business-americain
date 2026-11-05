@@ -1,30 +1,52 @@
 import { NextResponse } from "next/server";
 import sharp from "sharp";
+import opentype from "opentype.js";
 import { site } from "@/config/site";
+import { INTER_BOLD_BASE64 } from "@/lib/watermark-font";
+import { orderRef } from "@/lib/server";
 import { loadFileForUser } from "@/lib/access";
 import { STORAGE_BUCKET, supabaseAdmin } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** Watermark drawn with shapes (works on any server, even without fonts) + the brand name as text. */
-function watermarkSvg(w: number, h: number) {
-  const tile = 190;
-  const marks: string[] = [];
-  for (let y = -tile; y < h + tile; y += tile) {
-    for (let x = -tile; x < w + tile; x += tile) {
-      const ox = x + ((y / tile) % 2 === 0 ? 0 : tile / 2);
-      marks.push(`
-        <g transform="translate(${ox},${y}) rotate(-30 60 30)">
-          <rect x="0" y="0" width="34" height="34" rx="10" fill="none" stroke="white" stroke-width="3"/>
-          <path d="M11 8h8a5 5 0 0 1 1 9.8 5.3 5.3 0 0 1-1.4 10.2H11Z" fill="none" stroke="white" stroke-width="3"/>
-          <text x="46" y="24" font-family="Arial, Helvetica, DejaVu Sans, sans-serif" font-size="20" font-weight="700" fill="white">${site.brandName.toUpperCase()} · PREVIEW</text>
-        </g>`);
+let font: opentype.Font | null = null;
+function getFont() {
+  if (!font) {
+    const buf = Buffer.from(INTER_BOLD_BASE64, "base64");
+    font = opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
+  }
+  return font;
+}
+
+/** Text converted to vector shapes: renders the same on every server, no installed font needed. */
+function textPath(text: string, size: number) {
+  return getFont().getPath(text, 0, 0, size).toPathData(1);
+}
+
+/**
+ * Watermark: repeated diagonal lines "BRAND · PREVIEW · #ORDER · client email".
+ * The order number and email make any screenshot traceable to the client.
+ */
+function watermarkSvg(w: number, h: number, label: string) {
+  const size = Math.max(14, Math.round(Math.min(w, h) / 38));
+  const d = textPath(label, size);
+  const lineW = getFont().getAdvanceWidth(label, size) + size * 3;
+  const stepY = size * 4.2;
+  const rows: string[] = [];
+  const span = Math.hypot(w, h);
+  let i = 0;
+  for (let y = -span / 2; y < span; y += stepY, i++) {
+    for (let x = -span / 2 + ((i % 2) * lineW) / 2; x < span; x += lineW) {
+      rows.push(`<path transform="translate(${x.toFixed(1)},${y.toFixed(1)})" d="${d}"/>`);
     }
   }
+  const all = rows.join("");
   return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">
-    <g opacity="0.5">${marks.join("")}</g>
-    <g opacity="0.25">${marks.join("").replaceAll("white", "black")}</g>
+    <g transform="rotate(-28 ${w / 2} ${h / 2})">
+      <g fill="black" opacity="0.22" transform="translate(1.5,1.5)">${all}</g>
+      <g fill="white" opacity="0.5">${all}</g>
+    </g>
   </svg>`);
 }
 
@@ -37,10 +59,10 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
 
   try {
     const input = Buffer.from(await data.arrayBuffer());
-    const base = sharp(input, { density: 150 }).rotate().resize({ width: 1400, height: 1400, fit: "inside", withoutEnlargement: true }).flatten({ background: "#ffffff" });
+    const base = sharp(input, { density: 150 }).rotate().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).flatten({ background: "#ffffff" });
     const { data: buf, info } = await base.png().toBuffer({ resolveWithObject: true });
     const out = await sharp(buf)
-      .composite([{ input: watermarkSvg(info.width, info.height), top: 0, left: 0 }])
+      .composite([{ input: watermarkSvg(info.width, info.height, `${site.brandName.toUpperCase()} · PREVIEW · #${orderRef(ctx.order.id)} · ${ctx.order.email}`), top: 0, left: 0 }])
       .jpeg({ quality: 78 })
       .toBuffer();
     return new NextResponse(out, {
