@@ -14,9 +14,12 @@ export async function POST(req: Request, { params }: { params: { id: string } })
   const ctx = await loadFileForUser(params.id);
   const origin = new URL(req.url).origin;
   if (!ctx) return NextResponse.redirect(`${origin}/account`, 303);
-  const { file, order, admin } = ctx;
+  const { file, order, user } = ctx;
+  // The client of this order (even if they are also an admin) must confirm, and the download is recorded.
+  // An admin downloading someone else's order is not recorded.
+  const isOwner = order.user_id === user.id || order.email.toLowerCase() === (user.email || "").toLowerCase();
 
-  if (!admin) {
+  if (isOwner) {
     const form = await req.formData();
     if (form.get("ack") !== "on") return NextResponse.redirect(`${origin}/account/orders/${order.id}?error=ack#final`, 303);
     if (file.kind !== "final" || order.status !== "delivered") return NextResponse.redirect(`${origin}/account/orders/${order.id}`, 303);
