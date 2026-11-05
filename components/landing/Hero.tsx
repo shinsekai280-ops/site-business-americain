@@ -66,15 +66,27 @@ export function Hero() {
 }
 
 /** The 4 big image cards under the hero. Replace with your real photos in /public/showcase. */
+function Img({ src }: { src: string }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />;
+}
+
 function Showcase() {
+  const img = site.showcaseImages;
   return (
     <div className="mt-14 rounded-[36px] border border-white/80 bg-white/50 p-3 shadow-float backdrop-blur md:p-4">
       <div className="grid grid-cols-2 gap-3 md:h-[440px] md:grid-cols-[1fr_2fr_1fr_1fr] md:gap-4">
         <div className="relative h-[260px] overflow-hidden rounded-[26px] bg-gradient-brand md:h-auto">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,rgba(255,255,255,0.55),transparent_55%)]" />
-          <div className="absolute bottom-8 left-6 text-[22px]">
-            <Lumen color="#0B3B2E" />
-          </div>
+          {img.first ? (
+            <Img src={img.first} />
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,rgba(255,255,255,0.55),transparent_55%)]" />
+              <div className="absolute bottom-8 left-6 text-[22px]">
+                <Lumen color="#0B3B2E" />
+              </div>
+            </>
+          )}
           <div className="absolute left-4 top-4 flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-float">
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-brand text-ink">
               <Check className="h-5 w-5" />
@@ -86,23 +98,41 @@ function Showcase() {
           </div>
         </div>
         <div className="relative col-span-2 h-[260px] overflow-hidden rounded-[26px] bg-[#EFE7DA] md:col-span-1 md:h-auto">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.7),transparent_60%)]" />
-          <div className="absolute inset-0 flex items-center justify-center text-[64px] md:text-[96px]">
-            <Verra />
-          </div>
-          <p className="absolute bottom-5 left-6 text-[13px] font-medium text-[#2B2118]/50">Verra · Skincare</p>
+          {img.main ? (
+            <Img src={img.main} />
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.7),transparent_60%)]" />
+              <div className="absolute inset-0 flex items-center justify-center text-[64px] md:text-[96px]">
+                <Verra />
+              </div>
+              <p className="absolute bottom-5 left-6 text-[13px] font-medium text-[#2B2118]/50">Verra · Skincare</p>
+            </>
+          )}
         </div>
         <div className="relative h-[260px] overflow-hidden rounded-[26px] bg-[#16352B] md:h-auto">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(155,226,60,0.25),transparent_60%)]" />
-          <div className="absolute inset-0 flex items-center justify-center text-[26px]">
-            <Oriel color="#EAF2E3" />
-          </div>
+          {img.third ? (
+            <Img src={img.third} />
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(155,226,60,0.25),transparent_60%)]" />
+              <div className="absolute inset-0 flex items-center justify-center text-[26px]">
+                <Oriel color="#EAF2E3" />
+              </div>
+            </>
+          )}
         </div>
         <div className="relative h-[260px] overflow-hidden rounded-[26px] bg-[#0E1116] md:h-auto">
-          <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(242,217,11,0.18),transparent_45%)]" />
-          <div className="absolute left-6 top-8 text-[22px]">
-            <Northline />
-          </div>
+          {img.fourth ? (
+            <Img src={img.fourth} />
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(242,217,11,0.18),transparent_45%)]" />
+              <div className="absolute left-6 top-8 text-[22px]">
+                <Northline />
+              </div>
+            </>
+          )}
           <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/95 p-4 shadow-float">
             <p className="text-[14px] font-medium">Brand guidelines included</p>
             <p className="mt-1 text-[13px] text-muted">Colors, typography and usage rules, ready for your team.</p>

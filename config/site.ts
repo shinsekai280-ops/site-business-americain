@@ -116,6 +116,16 @@ export const site = {
     { name: "The Linden", industry: "Hospitality", featured: false, image: "/work/the-linden.jpg" },
   ] as { name: string; industry: string; featured: boolean; image: string }[],
 
+  /* ---------- Hero images (the 4 cards under the title) ----------
+     Put your images in /public/showcase/ and write the path. Empty = demo visual.
+     first = tall card on the left, main = large card, third and fourth = the two cards on the right. */
+  showcaseImages: {
+    first: "",
+    main: "",
+    third: "",
+    fourth: "",
+  },
+
   /* ---------- "A logo is one piece" section images ----------
      Put your images in /public/included/ and write the path. Empty = demo visual. */
   includedImages: {
