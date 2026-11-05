@@ -14,6 +14,15 @@ export function siteUrl() {
   return `${proto}://${host}`;
 }
 
+/** Address the visitor is on right now (used for the Stripe return pages, so they always come back to the same site). */
+export function requestUrl() {
+  const h = headers();
+  const host = h.get("x-forwarded-host") || h.get("host");
+  if (!host) return siteUrl();
+  const proto = h.get("x-forwarded-proto") || (host.startsWith("localhost") ? "http" : "https");
+  return `${proto}://${host}`;
+}
+
 /* ---------------- Stripe ---------------- */
 export function stripe() {
   if (!process.env.STRIPE_SECRET_KEY) throw new Error("STRIPE_SECRET_KEY is missing");

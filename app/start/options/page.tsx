@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { site, getPackage, formatUsd } from "@/config/site";
 import { Shell, SubmitButton, Notice } from "@/components/Shell";
 import { Check, Shield } from "@/components/ui";
-import { stripe, siteUrl } from "@/lib/server";
+import { stripe, requestUrl } from "@/lib/server";
 
 export const metadata = { title: `Choose your options | ${site.brandName}`, robots: { index: false } };
 
@@ -33,8 +33,8 @@ async function checkout(formData: FormData) {
     ],
     allow_promotion_codes: true,
     metadata: { package_id: pkg.id, upsell: String(upsell) },
-    success_url: `${siteUrl()}/welcome?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${siteUrl()}/start/options?pkg=${pkg.id}`,
+    success_url: `${requestUrl()}/welcome?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${requestUrl()}/start/options?pkg=${pkg.id}`,
   });
   redirect(session.url!);
 }
